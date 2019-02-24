@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         HOST = 'localhost'
-        DB_PASSWORD = 'mysecretpassword'// in real use case go for: https://jenkins.io/doc/book/pipeline/jenkinsfile/#handling-credentials
+        DB_PASS = 'mysecretpassword'// in real use case go for: https://jenkins.io/doc/book/pipeline/jenkinsfile/#handling-credentials
     }
 
     stages {
