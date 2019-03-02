@@ -1,5 +1,5 @@
 pipeline {
-    agent { docker { image 'golang' } }
+    agent { dockerfile true }
 
     environment {
         HOST = 'localhost'
