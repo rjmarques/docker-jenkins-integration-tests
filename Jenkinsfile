@@ -7,12 +7,6 @@ pipeline {
                 sh 'docker-compose build'
             }
         }
-        
-        stage('run container') {
-            steps {
-                sh 'docker-compose up'
-            }
-        }
 
         stage('run container') {
             steps {
