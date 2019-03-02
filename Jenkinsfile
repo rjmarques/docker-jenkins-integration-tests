@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        HOST = 'localhost'
+        DB_PASS = 'mysecretpassword'// in real use case go for: https://jenkins.io/doc/book/pipeline/jenkinsfile/#handling-credentials
+    }
+
     stages {
         stage('build docker image') {
             steps {
@@ -10,9 +15,23 @@ pipeline {
 
         stage('run container') {
             steps {
-                sh 'docker-compose up'
+                sh 'docker-compose up -d'
             }
         }
+
+        stage('get go dependencies') {
+            steps {
+                sh 'go get gotest.tools/assert'
+                sh 'go get github.com/lib/pq'
+            }
+        }
+
+        stage('run tests') {
+            steps {
+                sh 'go test ./...'
+            }
+        }
+        
         
         stage('stop container and clear images') {
             steps {

@@ -9,16 +9,3 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=mysecretpassword
     container_name: postgres
-  tests:
-    build: ./src
-    volumes:
-      - ./src:/go/src/github.com/user/ric/integration_tests
-    container_name: go_tests
-    depends_on:
-      - db
-    links:
-      - db
-    environment:
-      - DB_PASS=mysecretpassword
-      - HOST=db
-    command: sh -c " sleep 5s ; go test ./..."
