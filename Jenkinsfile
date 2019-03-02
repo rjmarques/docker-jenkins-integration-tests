@@ -1,21 +1,28 @@
 pipeline {
-    agent { dockerfile true }
-
-    environment {
-        HOST = 'localhost'
-        DB_PASS = 'mysecretpassword'// in real use case go for: https://jenkins.io/doc/book/pipeline/jenkinsfile/#handling-credentials
-    }
+    agent any
 
     stages {
-        stage('get go dependencies') {
+        stage('build docker image') {
             steps {
-                sh 'go get gotest.tools/assert'
-                sh 'go get github.com/lib/pq'
+                sh 'docker-compose build'
             }
         }
-        stage('test') {
+        
+        stage('run container') {
             steps {
-                sh 'go test'
+                sh 'docker-compose up'
+            }
+        }
+
+        stage('run container') {
+            steps {
+                sh 'docker-compose up'
+            }
+        }
+        
+        stage('stop container and clear images') {
+            steps {
+                sh 'docker-compose down --rmi all'
             }
         }
     }
