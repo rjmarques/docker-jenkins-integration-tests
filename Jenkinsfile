@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        go 'Go 1.12'
+    }
+    
     environment {
         HOST = 'localhost'
         DB_PASS = 'mysecretpassword'// in real use case go for: https://jenkins.io/doc/book/pipeline/jenkinsfile/#handling-credentials
